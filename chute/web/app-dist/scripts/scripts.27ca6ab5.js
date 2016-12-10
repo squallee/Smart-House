@@ -1,5 +1,5 @@
 "use strict";
-angular.module("seccamApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages", "ngResource", "ngRoute", "ngSanitize", "ngTouch"])
+angular.module("smarthouseApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages", "ngResource", "ngRoute", "ngSanitize", "ngTouch"])
     .config(["$routeProvider", function(a) {
         a.when("/", {
                 templateUrl: "views/main.html",
@@ -22,10 +22,10 @@ angular.module("seccamApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages", "
         a.isActive = function(a) {
             return a === b.url()
         }
-}]), angular.module("seccamApp")
+}]), angular.module("smarthouseApp")
     .controller("MainCtrl", function() {
         this.awesomeThings = ["HTML5 Boilerplate", "AngularJS", "Karma"]
-    }), angular.module("seccamApp")
+    }), angular.module("smarthouseApp")
     .controller("LiveStreamCtrl", ["$scope", function(a) {
         a.streamStarted = !1;
         var b = "http://admin@" + window.location.hostname + ":81/video.cgi";
@@ -33,7 +33,7 @@ angular.module("seccamApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages", "
             a.streamStarted || (a.streamStarted = !0, $("#video-stream")
                 .attr("src", b))
         }
-}]), angular.module("seccamApp")
+}]), angular.module("smarthouseApp")
     .controller("PhotosCtrl", ["$scope", "$http", "$interval", function(a, b, c) {
         a.photos = [];
         var d = "http://" + window.location.hostname + ":8010",
@@ -46,7 +46,7 @@ angular.module("seccamApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages", "
                     })
             };
         g(), f = c(g, e)
-}]), angular.module("seccamApp")
+}]), angular.module("smarthouseApp")
     .run(["$templateCache", function(a) {
         var live_stream_html = `
             <div class="container" id="video-box">
@@ -58,10 +58,10 @@ angular.module("seccamApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages", "
         `
         var main_html = `
             <div class="jumbotron">
-               <h1>SecCam</h1>
+               <h1>Smart House</h1>
                <hr>
                <p class="lead">
-                  <!--<img src="images/paradrop-big.6f0864b6.png" alt="Paradrop" style=\'width: 55%\'>--> <!--<br>--> Security brought to you by <br> <a href="http://paradrop.io"><img src="images/paradrop-small.9986ea54.png" alt="Paradrop" style="width: 55%"></a>
+                  <!--<img src="images/smarthome.6f0864b6.png" alt="Paradrop" style=\'width: 55%\'>--> <!--<br>--> Ted, Mason, Sean<br> <a href="http://paradrop.io"><img src="images/smarthome.png" alt="Paradrop" style="width: 55%"></a>
                </p>
                <hr>
                <p><a class="btn btn-lg btn-success" ng-href="#/live-stream">Live Stream <span class="glyphicon glyphicon-facetime-video"></span></a></p>
@@ -78,19 +78,19 @@ angular.module("seccamApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages", "
                <div ng-repeat="photo in photos track by $index" ng-if="$index % 4 === 0" class="row">
                   <div class="col-xs-3 cam-thumbnail">
                      <h5>Taken at {{ photos[$index + 0].ts | date:\'mediumTime\':\'CST\' }}</h5>
-                     <img class="img-responsive" ng-src="{{photos[$index + 0].path}}" alt="A SecCam photo">
+                     <img class="img-responsive" ng-src="{{photos[$index + 0].path}}" alt="A smarthouse photo">
                   </div>
                   <div class="col-xs-3 cam-thumbnail">
                      <h5>Taken at {{ photos[$index + 1].ts | date:\'mediumTime\':\'CST\' }}</h5>
-                     <img class="img-responsive" ng-src="{{photos[$index + 1].path}}" alt="A SecCam photo">
+                     <img class="img-responsive" ng-src="{{photos[$index + 1].path}}" alt="A smarthouse photo">
                   </div>
                   <div class="col-xs-3 cam-thumbnail">
                      <h5>Taken at {{ photos[$index + 2].ts | date:\'mediumTime\':\'CST\' }}</h5>
-                     <img class="img-responsive" ng-src="{{photos[$index + 2].path}}" alt="A SecCam photo">
+                     <img class="img-responsive" ng-src="{{photos[$index + 2].path}}" alt="A smarthouse photo">
                   </div>
                   <div class="col-xs-3 cam-thumbnail">
                      <h5>Taken at {{ photos[$index + 3].ts | date:\'mediumTime\':\'CST\' }}</h5>
-                     <img class="img-responsive" ng-src="{{photos[$index + 3].path}}" alt="A SecCam photo">
+                     <img class="img-responsive" ng-src="{{photos[$index + 3].path}}" alt="A smarthouse photo">
                   </div>
                </div>
             </div>
