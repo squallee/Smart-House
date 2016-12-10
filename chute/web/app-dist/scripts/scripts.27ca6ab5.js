@@ -53,7 +53,7 @@ angular.module("smarthouseApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages
                 <h1>Live Stream</h1>
                 <h2 ng-if="streamStarted">Stream is live!</h2>
                 <h2 ng-if="!streamStarted">Stream has not started.</h2>
-                <img id="video-stream" alt="Click to start stream" ng-click="startStream()">
+                <img id="video-stream" alt="start stream" ng-click="startStream()">
             </div>
         `
         var main_html = `
@@ -61,7 +61,7 @@ angular.module("smarthouseApp", ["ngAnimate", "ngAria", "ngCookies", "ngMessages
                <h1>Smart House</h1>
                <hr>
                <p class="lead">
-                  <!--<img src="images/smarthome.6f0864b6.png" alt="Paradrop" style=\'width: 55%\'>--> <!--<br>--> Ted, Mason, Sean<br> <a href="http://paradrop.io"><img src="images/smarthome.png" alt="Paradrop" style="width: 55%"></a>
+                  <!--<img src="images/smarthome.png" alt="Paradrop" style=\'width: 55%\'>--> <!--<br>--> Ted, Mason, Sean<br> <a href="http://paradrop.io"><img src="images/smarthome.png" alt="Paradrop" style="width: 55%"></a>
                </p>
                <hr>
                <p><a class="btn btn-lg btn-success" ng-href="#/live-stream">Live Stream <span class="glyphicon glyphicon-facetime-video"></span></a></p>
