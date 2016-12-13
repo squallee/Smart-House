@@ -286,7 +286,7 @@ if __name__ == "__main__":
         bulb.setRgb(100, 0, 100)
     '''
 
-    bulb_ip == "192.168.128.187"
+    bulb_ip = "192.168.128.187"
     bulb = WifiLedBulb(bulb_ip)
     bulb.setRgb(100, 0, 100)
 
