@@ -32,7 +32,7 @@ ADD chute/web /var/www/html
 # ADD <path_inside_repository> <path_inside_container>
 #
 ADD chute/smarthouse.py /usr/local/bin/smarthouse.py
-ADD chute/smarthouse.py /usr/local/bin/LedControl.py
+ADD chute/LedControl.py /usr/local/bin/LedControl.py
 ADD chute/run.sh /usr/local/bin/run.sh
 
 # Set the work dir for nodejs photo server
