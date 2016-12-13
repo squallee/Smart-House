@@ -67,7 +67,7 @@ def create_LED_App(bulb):
 
 def run_LED_App(bulb):
     app = create_LED_App(bulb)
-    app.run(host = '0.0.0.0', port = 8011)
+    app.run(host = '0.0.0.0', port = 8012)
 
 
 '''
