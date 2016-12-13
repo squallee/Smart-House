@@ -1,9 +1,48 @@
 import socket
 import time
-import sys
 from optparse import OptionParser,OptionGroup
 
+import sys, math, os, string, time, argparse, json, subprocess
+import httplib
+import base64
+import StringIO
+import thread
+from flask import Flask
+from flask import request
 
+'''
+Flask web interface
+'''
+
+def create_LED_App(bulb):
+    app = Flask(__name__)
+
+
+    @app.route('/led/on')
+    def turnLedOn():
+        bulb.turnOn()
+        return "LED On"
+
+    @app.route('/led/off')
+    def turnLedOff():
+        bulb.turnOff()
+        return "LED Off"
+
+    @app.route('/')
+    def hello_world():
+        return 'Hello, World!'
+
+    return app
+
+
+def run_LED_App(bulb):
+    app = create_LED_App(bulb)
+    app.run(host = '0.0.0.0', port = 8011)
+
+
+'''
+LED Control Function
+'''
 
 class BulbScanner():
     def __init__(self):
@@ -65,7 +104,7 @@ class BulbScanner():
 
 def scan():
     # my code here
-    print('hello')
+    print('Start scanning the network to connet WifiLED')
     scanner = BulbScanner()
     scanner.scan(timeout=2)
     bulb_info_list = scanner.getBulbInfo()
@@ -80,7 +119,7 @@ def scan():
         for b in bulb_info_list:
             print
             "  {} {}".format(b['id'], b['ipaddr'])
-        sys.exit(0)
+        #sys.exit(0)
     return addrs
 
 class WifiLedBulb():
@@ -166,17 +205,40 @@ def parseArgs():
     (options, args) = parser.parse_args()
     return (options, args)
 
+
+'''
+Main
+'''
+
 if __name__ == "__main__":
     (options, args) = parseArgs()
     addrs = []
+    bulb_ip = ""
+    bulb    = None
 
-    rst = scan()
-    bulb_ip = rst[0]
-    print(bulb_ip)
-    if bulb_ip:
+    ## connect the LED bulb
+    while(bulb_ip == ""):
+        rst = scan()
+        if (len(rst) > 0):
+            bulb_ip = rst[0]
+        else:
+            time.sleep(2)
+            continue
+
+        print("LED ip: ", bulb_ip)
         bulb = WifiLedBulb(bulb_ip)
         bulb.setRgb(100, 0, 100)
 
+    ## start multi-thread to listening the flask packet
+    try:
+       thread.start_new_thread( run_LED_App, (bulb,) )
+    except:
+       print "Error: unable to start thread in LED control"
+
+    while(True):
+        continue
+
+'''
     if options.scan:
         scan()
     else:
@@ -189,3 +251,4 @@ if __name__ == "__main__":
         bulb.turnOff()
     if options.color is not None:
         bulb.setRgb(options.color[0], options.color[1], options.color[2])
+'''
