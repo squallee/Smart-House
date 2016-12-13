@@ -28,6 +28,36 @@ def create_LED_App(bulb):
         bulb.turnOff()
         return "LED Off"
 
+    @app.route('/json', methods=['GET', 'POST'])
+    def parseJSON():
+        if request.method == 'POST':
+            feature = request.form['feature']
+
+            if(feature == "power"):
+                val = request.form['value']
+                if(val == "0"):
+                    bulb.turnOff()
+                    print("Led Off")
+                elif(val == "1"):
+                    bulb.turnOn()
+                    print("Led On")
+                else:
+                    print("Error")
+
+            elif(feature == "color"):
+                r = request.form['r']
+                g = request.form['g']
+                b = request.form['b']
+                bulb.setRgb(int(r), int(g), int(b))
+
+            elif(feature == "brightness"):
+                val = request.form['value']
+                bulb.setWarmWhite(int(val))
+
+            return ("Set LED")
+        else:
+            return ("error")
+
     @app.route('/')
     def hello_world():
         return 'Hello, World!'
@@ -102,6 +132,14 @@ class BulbScanner():
         return response_list
 
 
+def percentToByte(percent):
+	if percent > 100:
+		percent = 100
+	if percent < 0:
+		percent = 0
+	return int((percent * 255)/100)
+
+
 def scan():
     # my code here
     print('Start scanning the network to connet WifiLED')
@@ -161,6 +199,19 @@ class WifiLedBulb():
         msg.append(b)
         msg.append(0x00)
         msg.append(0xf0)
+        msg.append(0x0f)
+        self.__write(msg)
+
+    def setWarmWhite(self, level, persist=True):
+        if persist:
+            msg = bytearray([0x31])
+        else:
+            msg = bytearray([0x41])
+        msg.append(0x00)
+        msg.append(0x00)
+        msg.append(0x00)
+        msg.append(percentToByte(level))
+        msg.append(0x0f)
         msg.append(0x0f)
         self.__write(msg)
 
