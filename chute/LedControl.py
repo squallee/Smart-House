@@ -142,7 +142,6 @@ def percentToByte(percent):
 
 def scan():
     # my code here
-    print('Start scanning the network to connet WifiLED')
     scanner = BulbScanner()
     scanner.scan(timeout=2)
     bulb_info_list = scanner.getBulbInfo()
@@ -267,9 +266,14 @@ if __name__ == "__main__":
     bulb_ip = ""
     bulb    = None
 
+    print("In LED Control Main")
+
     ## connect the LED bulb
     while(bulb_ip == ""):
+        print('Start scanning the network to connet WifiLED')
         rst = scan()
+        print('End scan')
+
         if (len(rst) > 0):
             bulb_ip = rst[0]
         else:
