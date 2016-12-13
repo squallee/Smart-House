@@ -268,6 +268,7 @@ if __name__ == "__main__":
 
     print("In LED Control Main")
 
+    '''
     ## connect the LED bulb
     while(bulb_ip == ""):
         print('Start scanning the network to connet WifiLED')
@@ -283,6 +284,11 @@ if __name__ == "__main__":
         print("LED ip: ", bulb_ip)
         bulb = WifiLedBulb(bulb_ip)
         bulb.setRgb(100, 0, 100)
+    '''
+
+    bulb_ip == "192.168.128.187"
+    bulb = WifiLedBulb(bulb_ip)
+    bulb.setRgb(100, 0, 100)
 
     ## start multi-thread to listening the flask packet
     try:
