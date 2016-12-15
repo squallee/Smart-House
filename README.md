@@ -1,6 +1,6 @@
-# Security Cam for Paradrop
+# Smart-House for Paradrop
 
-Security Camera Chute
+smart-house Chute
 
 ## Catagory: Security, Computer Vision
 
